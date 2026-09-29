@@ -1,0 +1,2 @@
+class DuplicateSchoolApplicationError(Exception):
+    pass
