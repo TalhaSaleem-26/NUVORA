@@ -4,7 +4,8 @@ from app.models.school_application import SchoolApplication
 from app.schemas.school_application import SchoolApplicationCreate
 from app.repositories.school_application_repository import (
     create_school_application as create_school_application_repo,
-    find_pending_by_email as pending_application
+    find_pending_by_email as pending_application ,
+    get_school_applications as get_school_applications_repo
 )
 
 from app.core.exceptions import DuplicateSchoolApplicationError
@@ -32,3 +33,8 @@ def create_school_application(
         session,
         new_application,
     )
+    
+
+def  get_school_applications(session: Session)->list[SchoolApplication] :
+    
+    return get_school_applications_repo(session)

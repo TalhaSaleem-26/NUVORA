@@ -20,3 +20,10 @@ def find_pending_by_email(session: Session,contact_email:str)->SchoolApplication
     
     return query
     
+
+def get_school_applications(session: Session)-> list[SchoolApplication] :
+    
+    statement=select(SchoolApplication)
+    query=session.exec(statement).all()
+    
+    return query
