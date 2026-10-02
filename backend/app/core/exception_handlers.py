@@ -1,17 +1,17 @@
 from fastapi import Request
 from fastapi.responses import JSONResponse
 
-from app.core.exceptions import DuplicateSchoolApplicationError
+from app.core.exceptions import AppException
 
 
-def duplicate_school_application_handler(
+def app_exception_handler(
     request: Request,
-    exc: DuplicateSchoolApplicationError,
+    exc: AppException,
 ) -> JSONResponse:
 
     return JSONResponse(
-        status_code=409,
+        status_code=exc.status_code,
         content={
-            "detail": "A pending school application already exists for this email."
+            "detail": exc.detail
         },
     )
