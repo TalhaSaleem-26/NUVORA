@@ -77,3 +77,32 @@ def school_application_approve(
     session.refresh(application)
 
     return application
+
+
+def school_application_reject(
+    application_id: UUID,
+    session: Session,
+) -> SchoolApplication:
+
+    application = get_application_by_id(
+        application_id,
+        session,
+    )
+
+    if not application:
+        raise SchoolApplicationNotFoundError()
+
+    if application.status != SchoolApplicationStatus.PENDING:
+        raise InvalidSchoolApplicationStateError()
+
+    application.status = SchoolApplicationStatus.REJECTED
+
+    update_application(
+        session,
+        application,
+    )
+
+    session.commit()
+    session.refresh(application)
+
+    return application

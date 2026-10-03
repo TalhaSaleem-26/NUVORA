@@ -15,6 +15,9 @@ class Settings(BaseSettings):
     APP_NAME:str
     ENVIRONMENT:str
     SECRET_KEY:str
+    ALGORITHM:str
+    ACCESS_TOKEN_EXPIRE_MINUTES:int
+    
 
     
 settings=Settings()

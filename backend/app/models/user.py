@@ -20,7 +20,7 @@ class User(SQLModel, table=True):
 
     email: str
 
-    password_hash: str
+    password_hash: str | None = None
 
     role: UserRoles
 

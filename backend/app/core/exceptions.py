@@ -20,3 +20,12 @@ class InvalidSchoolApplicationStateError(AppException):
 class SchoolAlreadyExistsError(AppException):
     status_code = 409
     detail = "A school with this email already exists."
+    
+    
+class UserAlreadyExistsError(AppException):
+    status_code=409
+    detail="A user with this email already exists. Try a different email or login. "
+    
+class AuthenticationError(AppException):
+    status_code = 401
+    detail = "Could not validate credentials."
