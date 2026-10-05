@@ -36,3 +36,23 @@ class UserRead(BaseModel):
     status: UserStatus
     created_at: datetime
     updated_at: datetime
+    
+    
+class SuperAdminCreate(BaseModel):
+
+    model_config = ConfigDict(
+        extra="forbid",
+        str_strip_whitespace=True,
+    )
+
+    name: str = Field(
+        min_length=3,
+        max_length=100,
+    )
+
+    email: EmailStr
+
+    password: str = Field(
+        min_length=8,
+        max_length=128,
+    )
