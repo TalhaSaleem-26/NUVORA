@@ -7,13 +7,13 @@ from fastapi import Depends
 
 from sqlmodel import Session
 
-from app.core.exceptions import AuthenticationError
+from app.core.exceptions import AuthenticationError ,AuthorizationError
 from app.core.security import oauth2_scheme
 from app.db.session import get_session
 from app.models.user import User
 from app.repositories.user_repository import get_user_by_id
 from app.core.config import settings
-
+from app.enums.enums import UserRoles
 
 def get_current_user(
     token: Annotated[str, Depends(oauth2_scheme)],
@@ -46,3 +46,18 @@ def get_current_user(
         raise AuthenticationError()
 
     return user
+
+
+
+def require_role(*allowed_roles: UserRoles):
+
+    def dependency(
+        current_user: User = Depends(get_current_user),
+    ) -> User:
+
+        if current_user.role not in allowed_roles:
+            raise AuthorizationError()
+
+        return current_user
+
+    return dependency

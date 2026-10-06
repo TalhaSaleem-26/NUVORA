@@ -29,3 +29,7 @@ class UserAlreadyExistsError(AppException):
 class AuthenticationError(AppException):
     status_code = 401
     detail = "Could not validate credentials."
+    
+class AuthorizationError(AppException):
+    status_code = 403
+    detail = "You do not have permission to perform this action."
